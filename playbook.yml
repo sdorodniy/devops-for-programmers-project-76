@@ -1,0 +1,62 @@
+- hosts: webservers
+  tasks:
+    - name: stop container
+      community.docker.docker_container:
+        name: nginx-app
+        state: absent
+    - name: Create redmine config directory
+      ansible.builtin.file:
+        path: /etc/redmine
+        state: directory
+        mode: '0755'
+    - name: Create .env file
+      ansible.builtin.template:
+        src: templates/env.j2
+        dest: /etc/redmine/.env
+        mode: '0644'
+    - name: Create Nginx config directory
+      ansible.builtin.file:
+        path: /etc/redmine/nginx
+        state: directory
+        mode: '0755'
+    - name: Copy Nginx config
+      ansible.builtin.copy:
+        src: containers/nginx/default.conf
+        dest: /etc/redmine/nginx/default.conf
+        mode: '0644'
+    - name: Create SSL directory
+      ansible.builtin.file:
+        path: /etc/redmine/ssl
+        state: directory
+        mode: '0755'
+    - name: Copy SSL certificates
+      ansible.builtin.copy:
+        src: "ssl/{{ item }}"
+        dest: "/etc/redmine/ssl/{{ item }}"
+        mode: '0644'
+      loop:
+        - fullchain.pem
+        - privkey.pem
+    - name: Run Redmine
+      community.docker.docker_compose:
+        project_name: sdorodniy-hexlet
+        definition:
+          version: '3.8'
+          services:
+            redmine:
+              container_name: redmine
+              image: redmine:5.0
+              env_file:
+                - /etc/redmine/.env
+              restart: always
+            caddy:
+              container_name: nginx
+              image: nginx:latest
+              ports:
+                - 80:80
+                - 443:443
+              volumes:
+                - /etc/redmine/nginx/default.conf:/etc/nginx/conf.d/default.conf
+                - /etc/redmine/ssl/:/ssl/certs
+              depends_on:
+                - redmine

@@ -1,0 +1,5 @@
+redmine_db_host: "{{ vault_redmine_db_host }}"
+redmine_db_username: "{{ vault_redmine_db_username }}"
+redmine_db_password: "{{ vault_redmine_db_password }}"
+redmibe_db_database: "{{ vault_redmibe_db_database }}"
+redmibe_db_port: "{{ vault_redmibe_db_port }}"
