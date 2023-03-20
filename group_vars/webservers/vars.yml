@@ -3,3 +3,6 @@ redmine_db_username: "{{ vault_redmine_db_username }}"
 redmine_db_password: "{{ vault_redmine_db_password }}"
 redmibe_db_database: "{{ vault_redmibe_db_database }}"
 redmibe_db_port: "{{ vault_redmibe_db_port }}"
+datadog_api_key: "{{ vault_datadog_api_key }}"
+datadog_site: "{{ vault_datadog_site }}"
+site_base_url: https://sdorodniy.site/

@@ -1,6 +1,9 @@
 ping:
 	ansible all -i inventory.ini -m ping --vault-password-file vault-password
 
+install:
+	ansible-galaxy install -r requirements.yml
+
 prepare:
 	ansible-playbook playbook/prepare.yml -i inventory.ini --vault-password-file vault-password
 

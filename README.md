@@ -14,6 +14,10 @@ PASSWORD=<password> make prepare-vault
 * Put SSL certificates in _ssl_ die, files should be named:
     * fullchain.pem
     * privkey.pem
+* Install Ansible dependecies:
+```bash
+make install
+```
 
 ## Commands
 
