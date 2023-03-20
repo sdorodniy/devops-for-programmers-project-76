@@ -9,10 +9,6 @@
           - name: Site
             url: "{{ site_base_url }}"
   tasks:
-    - name: stop container
-      community.docker.docker_container:
-        name: nginx-app
-        state: absent
     - name: Create redmine config directory
       ansible.builtin.file:
         path: /etc/redmine
