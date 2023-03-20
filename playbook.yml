@@ -1,13 +1,4 @@
-- hosts: webservers
-  roles:
-    - datadog.datadog
-  vars:
-    datadog_checks:
-      http_check:
-        init_config:
-        instances:
-          - name: Site
-            url: "{{ site_base_url }}"
+- hosts: all
   tasks:
     - name: Create redmine config directory
       ansible.builtin.file:
@@ -65,3 +56,13 @@
                 - /etc/redmine/ssl/:/ssl/certs
               depends_on:
                 - redmine
+- hosts: webservers
+  roles:
+    - datadog.datadog
+  vars:
+    datadog_checks:
+      http_check:
+        init_config:
+        instances:
+          - name: Site
+            url: "{{ site_base_url }}"
