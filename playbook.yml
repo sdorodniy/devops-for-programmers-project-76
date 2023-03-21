@@ -24,10 +24,3 @@
 - hosts: webservers
   roles:
     - datadog.datadog
-  vars:
-    datadog_checks:
-      http_check:
-        init_config:
-        instances:
-          - name: Site
-            url: "{{ site_base_url }}"
