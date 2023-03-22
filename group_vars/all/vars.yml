@@ -2,3 +2,5 @@ redmine_db_host: rc1b-pz61qbsuu3y0kmig.mdb.yandexcloud.net
 redmine_db_username: user1
 redmibe_db_database: db1
 redmibe_db_port: 3306
+pip_install_packages:
+  - name: docker
